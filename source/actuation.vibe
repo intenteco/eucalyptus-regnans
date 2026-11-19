@@ -1,0 +1,346 @@
+import "vibe:0.3/nquin" as nquin;
+import "vibe:0.1/math" as math;
+requires [capability("capability.invoke")];
+
+// Eucalyptus regnans F.Muell. (Mountain Ash)
+// Runtime Ontogeny, Wind Harmonics & Obligate-Seeder Wildfire Ash-Bed Dehiscence Actuation Script
+// Work-Packet: ECO-WP-04B | Reference: ontology/taxon.ttl (InstanceState64, PO:* organs, obligate seeder)
+
+let actuation_parity = nquin.wire.compute_wire_parity([69, 114, 101, 103, 65]);
+
+pure fn clamp01(x: f64) -> f64 {
+    if x < 0.0 { return 0.0; }
+    if x > 1.0 { return 1.0; }
+    return x;
+}
+
+pure fn lerp(a: f64, b: f64, t: f64) -> f64 {
+    return a + (b - a) * clamp01(t);
+}
+
+// Ontogenetic regime classification from InstanceState64.ontogenetic_age_norm [0.00..1.00]
+pure fn classify_ontogenetic_stage(age_norm: f64) -> string {
+    let a = clamp01(age_norm);
+    if a < 0.15 { return "ashbed_sapling"; }
+    if a < 0.45 { return "pole_spar"; }
+    if a < 0.80 { return "canopy_giant"; }
+    return "veteran";
+}
+
+// Allometric curve evaluator for height (m), DBH (m), crown radius (m),
+// fluted buttress flare (NO lignotuber), basal stringybark stocking (5-15 m),
+// decorticating ribbons (5-12 m), Leadbeater's Possum hollow formation, and foliage weights.
+pure fn evaluate_ontogeny(age_norm: f64, height_scale: f64, site_vigor: f64, drought_leaf_drop: f64) {
+    let a = clamp01(age_norm);
+    let h_scale = 0.75 + 0.50 * clamp01((height_scale - 0.75) / 0.50);
+    let vigor = 0.40 + 0.80 * clamp01((site_vigor - 0.40) / 0.80);
+    let d_drop = clamp01(drought_leaf_drop);
+    let stage = classify_ontogenetic_stage(a);
+
+    let height_m = if a < 0.15 {
+        lerp(1.0, 12.0, a / 0.15)
+    } else if a < 0.45 {
+        lerp(12.0, 55.0, (a - 0.15) / 0.30)
+    } else if a < 0.80 {
+        lerp(55.0, 95.0, (a - 0.45) / 0.35)
+    } else {
+        lerp(82.0, 100.5, (a - 0.80) / 0.20)
+    };
+
+    let dbh_m = if a < 0.15 {
+        lerp(0.02, 0.16, a / 0.15)
+    } else if a < 0.45 {
+        lerp(0.16, 1.15, (a - 0.15) / 0.30)
+    } else if a < 0.80 {
+        lerp(2.00, 4.50, (a - 0.45) / 0.35)
+    } else {
+        lerp(3.50, 6.50, (a - 0.80) / 0.20)
+    };
+
+    let crown_radius_m = if a < 0.15 {
+        lerp(0.45, 2.0, a / 0.15)
+    } else if a < 0.45 {
+        lerp(2.0, 5.5, (a - 0.15) / 0.30)
+    } else if a < 0.80 {
+        lerp(6.5, 11.5, (a - 0.45) / 0.35)
+    } else {
+        lerp(10.5, 13.0, (a - 0.80) / 0.20)
+    };
+
+    let buttress_flare_factor = if a < 0.15 {
+        lerp(0.20, 0.45, a / 0.15)
+    } else if a < 0.45 {
+        lerp(0.45, 0.85, (a - 0.15) / 0.30)
+    } else if a < 0.80 {
+        lerp(0.85, 1.15, (a - 0.45) / 0.35)
+    } else {
+        lerp(1.15, 1.45, (a - 0.80) / 0.20)
+    };
+
+    let basal_stocking_height_m = if a < 0.15 {
+        0.0
+    } else if a < 0.45 {
+        lerp(0.5, 5.5, (a - 0.15) / 0.30)
+    } else if a < 0.80 {
+        lerp(5.5, 12.5, (a - 0.45) / 0.35)
+    } else {
+        lerp(12.5, 15.0, (a - 0.80) / 0.20)
+    };
+
+    let ribbon_shed_factor = if a < 0.15 {
+        0.0
+    } else if a < 0.45 {
+        lerp(0.15, 0.60, (a - 0.15) / 0.30)
+    } else if a < 0.80 {
+        lerp(0.65, 0.95, (a - 0.45) / 0.35)
+    } else {
+        1.0
+    };
+
+    let hollow_bearing_factor = if a < 0.45 {
+        0.0
+    } else if a < 0.80 {
+        lerp(0.05, 0.35, (a - 0.45) / 0.35)
+    } else {
+        lerp(0.60, 1.0, (a - 0.80) / 0.20)
+    };
+
+    // Glossy green ovate oblique juvenile foliage (never glaucous)
+    let juvenile_foliage_weight = if a < 0.15 {
+        1.0
+    } else if a < 0.35 {
+        lerp(0.90, 0.05, (a - 0.15) / 0.20)
+    } else {
+        0.0
+    };
+
+    let adult_foliage_weight = if a < 0.15 {
+        0.0
+    } else if a < 0.45 {
+        lerp(0.15, 0.92, (a - 0.15) / 0.30)
+    } else if a < 0.80 {
+        lerp(0.95, 1.0, (a - 0.45) / 0.35) * (1.0 - 0.50 * d_drop)
+    } else {
+        lerp(0.90, 0.74, (a - 0.80) / 0.20) * (1.0 - 0.50 * d_drop)
+    };
+
+    let paired_umbel_weight = if a < 0.25 {
+        0.0
+    } else if a < 0.45 {
+        lerp(0.0, 0.45, (a - 0.25) / 0.20)
+    } else if a < 0.80 {
+        lerp(0.70, 1.0, (a - 0.45) / 0.35)
+    } else {
+        lerp(0.95, 0.78, (a - 0.80) / 0.20)
+    };
+
+    return {
+        stage: stage,
+        age_norm: a,
+        lignotuber_present: false,
+        height_m: height_m * h_scale,
+        dbh_m: dbh_m * (0.85 + 0.15 * vigor),
+        crown_radius_m: crown_radius_m * (0.82 + 0.18 * vigor),
+        buttress_flare_factor: buttress_flare_factor,
+        basal_stocking_height_m: basal_stocking_height_m,
+        ribbon_shed_factor: ribbon_shed_factor,
+        hollow_bearing: a >= 0.80,
+        hollow_bearing_factor: hollow_bearing_factor,
+        juvenile_foliage_weight: juvenile_foliage_weight,
+        adult_foliage_weight: adult_foliage_weight,
+        paired_umbel_weight: paired_umbel_weight,
+        pipe_model_exponent: 2.49
+    };
+}
+
+// Hierarchical biomechanical wind harmonics (E = 16.0 GPa, rho = 650 kg/m3)
+// - Tall columnar bole & primary scaffold boughs sway at 0.18-0.40 Hz
+// - Pendulous falcate leaf sprigs flutter at 2.5-5.5 Hz (nominal 4.1 Hz)
+pure fn evaluate_wind_harmonics(wind_speed_ms: f64, wind_bias: f64, time_s: f64) {
+    let two_pi = 6.283185307179586;
+    let w = clamp01(wind_speed_ms / 22.0);
+    let gust_envelope = 0.65 + 0.35 * (0.5 + 0.5 * math.sin(two_pi * 0.14 * time_s));
+    let load = (wind_speed_ms / 14.0) * (0.6 + 0.4 * clamp01(wind_bias)) * gust_envelope;
+    let bough_sway = w * (0.34 * math.sin(two_pi * 0.34 * time_s) + 0.12 * math.sin(two_pi * 0.72 * time_s + 0.25));
+    let sprig_flutter = w * (0.18 * math.sin(two_pi * 4.1 * time_s + 0.9) + 0.06 * math.cos(two_pi * 5.4 * time_s));
+    return {
+        bole_sway_hz: 0.18,
+        leader_sway_hz: 0.26,
+        primary_bough_hz: 0.34,
+        secondary_limb_hz: 0.72,
+        tertiary_branchlet_hz: 1.55,
+        falcate_leaf_flutter_hz: 4.10,
+        bole_deflection_rad: 0.024 * load,
+        bough_amplitude_rad: 0.068 * load + 0.16 * bough_sway,
+        branchlet_amplitude_rad: 0.15 * load,
+        leaf_flutter_amplitude_rad: 0.34 * load + 0.46 * sprig_flutter,
+        damping_ratio: 0.16,
+        time_s: time_s
+    };
+}
+
+// Obligate-Seeder Wildfire Canopy Scorch, Bradysporous Capsule Dehiscence & Ash-Bed Release
+// Eucalyptus regnans strictly lacks a lignotuber (lignotuber_present = false).
+// High-severity crown fire kills the parent tree and triggers synchronous thermal dehiscence
+// of millions of canopy-stored woody gumnut capsules onto a sterilized, nutrient-rich mineral ash bed.
+pure fn step_obligate_seeder_fire_cycle(
+    fire_char_height: f64,
+    epicormic_sprout_factor: f64,
+    days_post_fire: f64,
+    xylem_water_potential_mpa: f64
+) {
+    let char_norm = clamp01(fire_char_height);
+    let sprout = clamp01(epicormic_sprout_factor);
+    let cavitation_risk = xylem_water_potential_mpa <= -2.9;
+
+    let state = if char_norm < 0.10 {
+        "intact_wet_sclerophyll_canopy"
+    } else if char_norm < 0.35 {
+        "basal_stocking_scorch_recovery"
+    } else if days_post_fire < 14.0 {
+        "crown_scorch_capsule_dehiscence"
+    } else if days_post_fire < 90.0 {
+        "ash_bed_mass_seed_rain"
+    } else {
+        "even_aged_ashbed_cohort_germination"
+    };
+
+    let canopy_scorch_01 = if char_norm < 0.10 {
+        0.0
+    } else if char_norm < 0.35 {
+        lerp(0.05, 0.30, (char_norm - 0.10) / 0.25)
+    } else {
+        lerp(0.70, 1.0, (char_norm - 0.35) / 0.65)
+    };
+
+    let capsule_dehiscence_01 = if char_norm < 0.30 {
+        0.05
+    } else if days_post_fire < 14.0 {
+        lerp(0.25, 1.0, days_post_fire / 14.0) * canopy_scorch_01
+    } else {
+        1.0
+    };
+
+    let seed_rain_density_per_m2 = if char_norm < 0.30 {
+        12.0
+    } else if days_post_fire < 45.0 {
+        lerp(80.0, 2400.0, clamp01(days_post_fire / 21.0)) * capsule_dehiscence_01
+    } else {
+        lerp(2400.0, 45.0, clamp01((days_post_fire - 45.0) / 120.0))
+    };
+
+    let ash_bed_nutrient_pulse = if char_norm < 0.30 {
+        0.0
+    } else {
+        clamp01(canopy_scorch_01 * (1.0 - clamp01(days_post_fire / 365.0) * 0.65))
+    };
+
+    // Minor epicormic sprouting only possible under sub-lethal low-severity scorch
+    let limited_epicormic_resprout = if char_norm < 0.35 && char_norm >= 0.10 {
+        clamp01(0.45 * sprout)
+    } else {
+        0.0
+    };
+
+    return {
+        state: state,
+        lignotuber_present: false,
+        canopy_scorch_01: canopy_scorch_01,
+        capsule_dehiscence_01: capsule_dehiscence_01,
+        seed_rain_density_per_m2: seed_rain_density_per_m2,
+        ash_bed_nutrient_pulse: ash_bed_nutrient_pulse,
+        limited_epicormic_resprout: limited_epicormic_resprout,
+        xylem_cavitation_risk: cavitation_risk,
+        pulse: {
+            channel: "eco.ereg.obligate_seeder_fire",
+            event: state,
+            stand_replacing_fire: char_norm >= 0.35,
+            mass_dehiscence_active: capsule_dehiscence_01 > 0.60
+        },
+        aura: {
+            canopy_transmittance: lerp(0.55, 0.94, canopy_scorch_01),
+            basal_char_band_m: 10.5 * char_norm,
+            ash_bed_mineral_glow: ash_bed_nutrient_pulse,
+            eucalyptol_thermal_plume: canopy_scorch_01 * (1.0 - clamp01(days_post_fire / 30.0))
+        }
+    };
+}
+
+// Rhizosphere Mycorrhizal EMF Waveguide, Biochemical Exudate & Environmental-Pressure Coupling
+// Models the Order 0-4 subterranean root plate (-5.2 m taproot, 8 primary laterals to 10.3 m,
+// 14 deep vertical sinkers, 28 feeder rootlets) interwoven with ectomycorrhizal Hartig-net hyphae.
+// Couples 0.1-50 Hz bio-electric action potentials & C/P/glomalin/allelochemical exudates with:
+//   - wind_prevailing_bias (root-plate overturning anchorage moment kNm)
+//   - drought / xylem_water_potential_mpa (deep sinker hydraulic lift around P50 = -2.9 MPa)
+//   - fire_char_height (rhizosphere nutrient pulse & deep mycelial survival below 5 cm mineral soil)
+pure fn evaluate_rhizosphere_mycorrhizal_coupling(
+    wind_bias: f64,
+    xylem_water_potential_mpa: f64,
+    fire_char_height: f64,
+    soil_moisture_01: f64
+) {
+    let clamped_moisture = if soil_moisture_01 < 0.05 { 0.05 } else { if soil_moisture_01 > 1.0 { 1.0 } else { soil_moisture_01 } };
+    let clamped_fire = if fire_char_height < 0.0 { 0.0 } else { if fire_char_height > 1.0 { 1.0 } else { fire_char_height } };
+    let drought_stress = if xylem_water_potential_mpa < -1.2 { (-1.2 - xylem_water_potential_mpa) / 2.2 } else { 0.0 };
+    let drought_stress_clamped = if drought_stress > 1.0 { 1.0 } else { drought_stress };
+
+    // Bio-electric action potential spike spectrum across Hartig-net mycelial cords (0.1 - 50.0 Hz)
+    let baseline_emf_hz = 0.85 + (clamped_moisture * 4.2);
+    let stress_spike_hz = baseline_emf_hz + (drought_stress_clamped * 24.5) + (clamped_fire * 18.0) + (wind_bias * 3.8);
+    let emf_frequency_hz = if stress_spike_hz > 50.0 { 50.0 } else { stress_spike_hz };
+    let action_potential_mv = 18.0 + (drought_stress_clamped * 42.0) + (clamped_fire * 28.0);
+    let soil_bulk_conductivity_s_m = 0.032 + (clamped_moisture * 0.048) + (clamped_fire * 0.014);
+
+    // Biochemical exudates (photosynthate C allocation, mycelial P transfer, glomalin, allelochemicals)
+    let carbon_exudate_flux_mg_m2_hr = 145.0 * clamped_moisture * (1.0 - (0.35 * clamped_fire));
+    let phosphorus_uptake_mg_m2_hr = 18.4 * clamped_moisture * (1.0 + (0.25 * (1.0 - drought_stress_clamped)));
+    let glomalin_soil_binding_mg_g = 4.8 + (1.6 * clamped_moisture);
+    let allelochemical_stress_index = (0.12 + (0.58 * drought_stress_clamped) + (0.45 * clamped_fire));
+
+    // Mechanical & hydraulic resilience from the wide root plate + deep sinkers
+    let root_plate_anchorage_knm = 2850.0 * (1.0 + (0.22 * wind_bias)) * (0.88 + (0.12 * clamped_moisture));
+    let sinker_hydraulic_lift_l_day = 68.0 * (0.35 + (0.65 * drought_stress_clamped)) * (0.45 + (0.55 * clamped_moisture));
+    let deep_mycelial_survival_ratio = 0.96 - (0.38 * clamped_fire);
+
+    return {
+        emf_frequency_hz: emf_frequency_hz,
+        action_potential_mv: action_potential_mv,
+        soil_bulk_conductivity_s_m: soil_bulk_conductivity_s_m,
+        carbon_exudate_flux_mg_m2_hr: carbon_exudate_flux_mg_m2_hr,
+        phosphorus_uptake_mg_m2_hr: phosphorus_uptake_mg_m2_hr,
+        glomalin_soil_binding_mg_g: glomalin_soil_binding_mg_g,
+        allelochemical_stress_index: allelochemical_stress_index,
+        root_plate_anchorage_knm: root_plate_anchorage_knm,
+        sinker_hydraulic_lift_l_day: sinker_hydraulic_lift_l_day,
+        deep_mycelial_survival_ratio: deep_mycelial_survival_ratio
+    };
+}
+
+let sapling_sample = evaluate_ontogeny(0.08, 0.95, 0.85, 0.0);
+let pole_sample    = evaluate_ontogeny(0.30, 1.00, 0.90, 0.05);
+let mature_sample  = evaluate_ontogeny(0.65, 1.00, 0.95, 0.05);
+let veteran_sample = evaluate_ontogeny(0.92, 1.05, 0.90, 0.10);
+let wind_sample    = evaluate_wind_harmonics(11.0, 0.35, 3.2);
+let wildfire_sample = step_obligate_seeder_fire_cycle(0.82, 0.15, 12.0, -2.1);
+let rhizosphere_sample = evaluate_rhizosphere_mycorrhizal_coupling(0.35, -2.1, 0.15, 0.72);
+
+let xpbd_tick = capability.invoke("hypermedia.kinetics.step_island_xpbd", {
+    bodies: [
+        { id: "00_deep_taproot_sinker", position: [0.0, -3.2, 0.0], velocity: [0.0, 0.0, 0.0], radius: 0.72, inv_mass: 0.0 },
+        { id: "00_buttress_anchor", position: [0.0, 0.2, 0.0], velocity: [0.0, 0.0, 0.0], radius: 1.65, inv_mass: 0.0 },
+        { id: "01_columnar_bole", position: [0.18, 16.0, 0.12], velocity: [wind_sample.bole_deflection_rad, 0.0, -0.02], radius: 0.56, inv_mass: 0.08 },
+        { id: "02_leader_alpha", position: [1.15, 34.8, 0.42], velocity: [wind_sample.bough_amplitude_rad, 0.02, -0.08], radius: 0.28, inv_mass: 0.35 },
+        { id: "03_falcate_sprig_cluster", position: [4.2, 28.5, 1.8], velocity: [wind_sample.leaf_flutter_amplitude_rad, -0.03, 0.12], radius: 0.85, inv_mass: 1.0 }
+    ],
+    area_override: {
+        bounds_min: [-16.0, -6.5, -16.0],
+        bounds_max: [16.0, 42.0, 16.0],
+        gravity: [0.0, -9.81, 0.0],
+        linear_damping: 0.16,
+        wind: [5.2, 0.35, -2.1]
+    },
+    dt: 0.015625,
+    steps: 4,
+    substeps: 4,
+    ground_y: -5.5
+});

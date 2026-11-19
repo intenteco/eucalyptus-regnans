@@ -1,0 +1,41 @@
+{
+  "schema": "synth.jobs/v1",
+  "items": [
+    {
+      "id": "ereg-taxon-ttl",
+      "kind": "compile",
+      "title": "Eucalyptus regnans taxon Turtle -> .q42",
+      "source_path": "eco-intent/eucalyptus-regnans/ontology/taxon.ttl",
+      "out_q42": "intenteco-ereg-04a-taxon.q42",
+      "ingest_to_graph": false,
+      "interval_secs": 0,
+      "enabled": false,
+      "created_at": 1794983426,
+      "updated_at": 1794983700,
+      "next_run_at": 0,
+      "last_run_at": 1794983700,
+      "last_status": "ok",
+      "last_sha256": "5d47d5bb85d43f9f9f020b32fb1763aeb667fa6e9522a15830dfb2f2d18b67fc",
+      "last_q42": "dist/taxon.q42",
+      "run_count": 1
+    },
+    {
+      "id": "ereg-index-ttl",
+      "kind": "compile",
+      "title": "Eucalyptus regnans index Turtle -> .q42",
+      "source_path": "eco-intent/eucalyptus-regnans/ontology/index.ttl",
+      "out_q42": "intenteco-ereg-04a-index.q42",
+      "ingest_to_graph": false,
+      "interval_secs": 0,
+      "enabled": false,
+      "created_at": 1794983426,
+      "updated_at": 1794983701,
+      "next_run_at": 0,
+      "last_run_at": 1794983701,
+      "last_status": "ok",
+      "last_sha256": "809a92124e33cce92fccb31ec47fa4895d4290535eb91cf718f91b0e911e6df9",
+      "last_q42": "dist/index.q42",
+      "run_count": 1
+    }
+  ]
+}

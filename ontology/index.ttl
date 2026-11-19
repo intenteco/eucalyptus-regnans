@@ -1,0 +1,134 @@
+# Eucalyptus regnans F.Muell. — DCAT Dataset & Distribution Manifest
+# Sealed copy compiles to dist/index.q42; working Turtle source lives in ontology/index.ttl.
+
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix dwc:    <http://rs.tdwg.org/dwc/terms/> .
+@prefix dct:    <http://purl.org/dc/terms/> .
+@prefix dcat:   <http://www.w3.org/ns/dcat#> .
+@prefix prov:   <http://www.w3.org/ns/prov#> .
+@prefix po:     <http://purl.obolibrary.org/obo/PO_> .
+@prefix q42:    <urn:qualia:ontology:> .
+@prefix qualia: <urn:qualia:taxon:> .
+@prefix ereg:   <urn:qualia:taxon:eucalyptus_regnans:> .
+@prefix rel:    <urn:qualia:release:eucalyptus-regnans:> .
+@prefix member: <urn:qualia:member:eucalyptus-regnans:> .
+
+qualia:eucalyptus_regnans a dcat:Dataset ;
+    owl:sameAs <did:q42:taxon:eucalyptus_regnans> ;
+    dct:title "Eucalyptus regnans F.Muell. (Mountain Ash) Hypermedia Dataset"@en ;
+    dct:description "SE Australian tall wet-sclerophyll flora ontology, pipe-model allometry, obligate-seeder fire ecology, InstanceState64 ontogeny, and multi-regime Hypermedia (.hmc) production manifest."@en ;
+    dct:publisher <https://github.com/intenteco> ;
+    dct:spatial "South-Eastern Australia (Victorian Central Highlands, Yarra Ranges, Dandenongs, Strzeleckis, Otway Ranges; Tasmania Huon, Derwent & North-East)" ;
+    dct:license <https://spdx.org/licenses/CC-BY-4.0.html> ;
+    q42:commonsFramework "SPC" ;
+    dcat:landingPage <https://github.com/intenteco/eucalyptus-regnans> ;
+    dct:hasPart member:taxon-ttl ,
+                member:taxon-q42 ,
+                member:index-ttl ,
+                member:index-q42 ,
+                member:claims-json ,
+                member:bookmarks-json ,
+                member:jobs-json ,
+                member:planned-vibe-cad ,
+                member:planned-actuation-vibe ,
+                member:planned-hmc ,
+                member:planned-10d ,
+                member:planned-substrate-m64 ,
+                member:planned-field-emf .
+
+member:taxon-ttl a dcat:Distribution ;
+    dct:title "Taxon & Biophysical Ontology Source (Turtle)"@en ;
+    dcat:mediaType "text/turtle" ;
+    dcat:accessURL <file:ontology/taxon.ttl> ;
+    q42:artifactStatus "authored" .
+
+member:taxon-q42 a dcat:Distribution ;
+    dct:title "Sealed Taxon & Biophysical Ontology Volume (.q42)"@en ;
+    dcat:mediaType "application/vnd.qualia.q42" ;
+    dcat:accessURL <file:dist/taxon.q42> ;
+    prov:wasDerivedFrom member:taxon-ttl ;
+    prov:wasGeneratedBy <urn:qualia:morphism:synth_compile_q42> ;
+    q42:artifactStatus "compiled_q42" .
+
+member:index-ttl a dcat:Distribution ;
+    dct:title "DCAT Dataset & Distribution Manifest Source (Turtle)"@en ;
+    dcat:mediaType "text/turtle" ;
+    dcat:accessURL <file:ontology/index.ttl> ;
+    q42:artifactStatus "authored" .
+
+member:index-q42 a dcat:Distribution ;
+    dct:title "Sealed Dataset Manifest Volume (.q42)"@en ;
+    dcat:mediaType "application/vnd.qualia.q42" ;
+    dcat:accessURL <file:dist/index.q42> ;
+    prov:wasDerivedFrom member:index-ttl ;
+    prov:wasGeneratedBy <urn:qualia:morphism:synth_compile_q42> ;
+    q42:artifactStatus "compiled_q42" .
+
+member:claims-json a dcat:Distribution ;
+    dct:title "193-Row + TREE-01..TREE-13 Deliverable Claim Ledger"@en ;
+    dcat:mediaType "application/json" ;
+    dcat:accessURL <file:dossier/claims.json> ;
+    q42:catalogueVersion "2026-10-24.2" ;
+    q42:catalogueSha256 "c0cb76151bf5d0776afaae4d59d7427efb65633bf359d3f4c2bda83c361c91cb" ;
+    q42:artifactStatus "initialized_partial" .
+
+member:bookmarks-json a dcat:Distribution ;
+    dct:title "Authoritative Australian Biodiversity Bookmarks"@en ;
+    dcat:mediaType "application/json" ;
+    dcat:accessURL <file:.synth/bookmarks.json> ;
+    q42:artifactStatus "authored" .
+
+member:jobs-json a dcat:Distribution ;
+    dct:title "Synth Q42 Compilation Job Manifest"@en ;
+    dcat:mediaType "application/json" ;
+    dcat:accessURL <file:.synth/jobs.json> ;
+    q42:artifactStatus "authored" .
+
+# Planned downstream ECO-WP-04B CAD & Hypermedia targets (not yet produced in ECO-WP-04A)
+member:planned-vibe-cad a dcat:Distribution ;
+    dct:title "Planned Master Multi-Regime Botanical CAD (.vibe)"@en ;
+    dcat:mediaType "text/x-vibescript" ;
+    dcat:accessURL <file:source/eucalyptus-regnans.vibe> ;
+    q42:artifactStatus "planned_ECO-WP-04B" .
+
+member:planned-actuation-vibe a dcat:Distribution ;
+    dct:title "Planned XPBD Wind & Phenology Actuation (.vibe)"@en ;
+    dcat:mediaType "text/x-vibescript" ;
+    dcat:accessURL <file:source/actuation.vibe> ;
+    q42:artifactStatus "planned_ECO-WP-04B" .
+
+member:planned-hmc a dcat:Distribution ;
+    dct:title "Planned Replay-Verified Hypermedia Container (.hmc)"@en ;
+    dcat:mediaType "application/vnd.qualia.hmc" ;
+    dcat:accessURL <file:dist/eucalyptus-regnans.hmc> ;
+    q42:artifactStatus "planned_ECO-WP-04B" .
+
+member:planned-10d a dcat:Distribution ;
+    dct:title "Planned Multi-Part PBR + Topology + BVH 10D Manifold (.10d)"@en ;
+    dcat:mediaType "application/vnd.qualia.10d" ;
+    dcat:accessURL <file:dist/eucalyptus-regnans.10d> ;
+    q42:artifactStatus "planned_ECO-WP-04B" .
+
+member:planned-substrate-m64 a dcat:Distribution ;
+    dct:title "Planned 64-Byte Aligned Matter/Tissue Substrate Grid (.m64)"@en ;
+    dcat:mediaType "application/vnd.qualia.m64" ;
+    dcat:accessURL <file:dist/eucalyptus-regnans-substrate.m64> ;
+    q42:artifactStatus "planned_ECO-WP-04B" .
+
+member:planned-field-emf a dcat:Distribution ;
+    dct:title "Planned Spectral/Dielectric Q42EMF64 Field Volume (.emf)"@en ;
+    dcat:mediaType "application/vnd.qualia.emf" ;
+    dcat:accessURL <file:dist/eucalyptus-regnans-field.emf> ;
+    q42:artifactStatus "planned_ECO-WP-04B" .
+
+rel:working a dcat:Dataset ;
+    dct:isVersionOf qualia:eucalyptus_regnans ;
+    dct:identifier "working-eco-wp-04a" ;
+    rdfs:comment "Single species HMC manifest. Individuals are parameterized by InstanceState64 (seed, ontogenetic_age_norm, height_scale, site_vigor, environmental_stress) plus pipe-model parameters."@en .
+
+ereg:OrganismTemplate a rdfs:Class ;
+    rdfs:label "Eucalyptus regnans F.Muell. Organism Template"@en ;
+    rdfs:comment "Instantiate individual trees via InstanceState64 across stages {ashbed_sapling: 0.00-0.15, pole_spar: 0.15-0.45, canopy_giant: 0.45-0.80, veteran: 0.80-1.00} with Shinozaki exponent 2.49, fork angles 32-48 deg, mature height 55-95 m (historical >100 m), DBH 2.0-6.5 m, air-dry wood density 650 kg/m3, E=16.0 GPa, P50=-2.9 MPa, SLA=8.4 m2/kg, and obligate-seeder ash-bed fire ecology (lignotuber absent)."@en .

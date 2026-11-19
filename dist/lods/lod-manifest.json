@@ -1,0 +1,152 @@
+{
+  "schema": "intenteco.lod-manifest/v1",
+  "slug": "eucalyptus-regnans",
+  "did": "did:q42:taxon:eucalyptus_regnans",
+  "kingdom": "flora",
+  "source_10d": {
+    "file": "eucalyptus-regnans.10d",
+    "bytes": 3689408,
+    "sha256": "f61aa4c3dd1c913e9d01f4faa212919830b0af970c957a3efd0e63c7628da946",
+    "vertices": 100916,
+    "triangles": 176312,
+    "bounds_min": [
+      -11.24470043182373,
+      -5.222965717315674,
+      -11.676985740661621
+    ],
+    "bounds_max": [
+      12.140600204467773,
+      37.265499114990234,
+      10.978985786437988
+    ]
+  },
+  "synth_hmc": "C:\\github\\synth\\production\\intenteco-lod-eucalyptus-regnans-comb-1795075366-698a7f.hmc",
+  "synth_export_dir": "C:\\github\\synth\\production\\intenteco-lod-eucalyptus-regnans-comb-1795075366-698a7f",
+  "lods": {
+    "lod0": {
+      "bytes": 971864,
+      "sha256": "9d7d090913577e56618ebde7300b1f85527c5174bdc2b030d58db5ccf06c0647",
+      "vertices": 41544,
+      "triangles": 64998,
+      "bounds_min": [
+        -11.207589149475098,
+        -5.2052178382873535,
+        -11.676985740661621
+      ],
+      "bounds_max": [
+        12.10348892211914,
+        37.092811584472656,
+        10.978985786437988
+      ],
+      "sections": [
+        "QuantizedMesh",
+        "FieldSidecar",
+        "SurfaceReading"
+      ],
+      "file": "eucalyptus-regnans-lod0.10d",
+      "distance_band_m": "0-25m",
+      "local_url": "/intenteco/eucalyptus-regnans/dist/lods/eucalyptus-regnans-lod0.10d",
+      "remote_url": "https://raw.githubusercontent.com/intenteco/eucalyptus-regnans/main/dist/lods/eucalyptus-regnans-lod0.10d"
+    },
+    "lod1": {
+      "bytes": 309636,
+      "sha256": "ad190e28c025d6f6ca56ddf042377e24f8b4bfb523ed06efef27a7e4cb2e70e1",
+      "vertices": 14471,
+      "triangles": 17797,
+      "bounds_min": [
+        -10.515389442443848,
+        -1.5374120473861694,
+        -10.336356163024902
+      ],
+      "bounds_max": [
+        11.805750846862793,
+        37.307987213134766,
+        9.844977378845215
+      ],
+      "sections": [
+        "QuantizedMesh",
+        "FieldSidecar",
+        "SurfaceReading"
+      ],
+      "file": "eucalyptus-regnans-lod1.10d",
+      "distance_band_m": "25-90m",
+      "local_url": "/intenteco/eucalyptus-regnans/dist/lods/eucalyptus-regnans-lod1.10d",
+      "remote_url": "https://raw.githubusercontent.com/intenteco/eucalyptus-regnans/main/dist/lods/eucalyptus-regnans-lod1.10d"
+    },
+    "lod2": {
+      "bytes": 67152,
+      "sha256": "5a84b11ae5e8cb97ede0deffb96a432acda1d4f15551a1e113a59b7d74e90176",
+      "vertices": 3106,
+      "triangles": 3900,
+      "bounds_min": [
+        -10.515389442443848,
+        -1.5374120473861694,
+        -10.42015552520752
+      ],
+      "bounds_max": [
+        11.889522552490234,
+        37.477352142333984,
+        9.939287185668945
+      ],
+      "sections": [
+        "QuantizedMesh",
+        "FieldSidecar",
+        "SurfaceReading"
+      ],
+      "file": "eucalyptus-regnans-lod2.10d",
+      "distance_band_m": ">90m",
+      "local_url": "/intenteco/eucalyptus-regnans/dist/lods/eucalyptus-regnans-lod2.10d",
+      "remote_url": "https://raw.githubusercontent.com/intenteco/eucalyptus-regnans/main/dist/lods/eucalyptus-regnans-lod2.10d"
+    },
+    "aboveground_lod1": {
+      "bytes": 379556,
+      "sha256": "941e1b66504815f7e7f52b982e1ad285f91c86291c804fa2b8d564142802671c",
+      "vertices": 17751,
+      "triangles": 21797,
+      "bounds_min": [
+        -9.39622974395752,
+        0.0,
+        -10.308422088623047
+      ],
+      "bounds_max": [
+        11.777826309204102,
+        37.272064208984375,
+        9.813541412353516
+      ],
+      "sections": [
+        "QuantizedMesh",
+        "FieldSidecar",
+        "SurfaceReading"
+      ],
+      "file": "eucalyptus-regnans-aboveground-lod1.10d",
+      "distance_band_m": "25-90m (y >= -0.30m)",
+      "local_url": "/intenteco/eucalyptus-regnans/dist/lods/eucalyptus-regnans-aboveground-lod1.10d",
+      "remote_url": "https://raw.githubusercontent.com/intenteco/eucalyptus-regnans/main/dist/lods/eucalyptus-regnans-aboveground-lod1.10d"
+    },
+    "rhizosphere": {
+      "bytes": 50652,
+      "sha256": "4f2eac958f5ecfefe73420b5ac573d55956edd9343443ea2eb40f2cd7619f1c1",
+      "vertices": 2241,
+      "triangles": 3169,
+      "bounds_min": [
+        -11.207589149475098,
+        -5.2052178382873535,
+        -11.676985740661621
+      ],
+      "bounds_max": [
+        12.10348892211914,
+        0.15000009536743164,
+        10.978985786437988
+      ],
+      "sections": [
+        "QuantizedMesh",
+        "FieldSidecar",
+        "SurfaceReading"
+      ],
+      "file": "eucalyptus-regnans-rhizosphere.10d",
+      "distance_band_m": "xray-subterranean (y <= 0.15m)",
+      "local_url": "/intenteco/eucalyptus-regnans/dist/lods/eucalyptus-regnans-rhizosphere.10d",
+      "remote_url": "https://raw.githubusercontent.com/intenteco/eucalyptus-regnans/main/dist/lods/eucalyptus-regnans-rhizosphere.10d"
+    }
+  }
+}

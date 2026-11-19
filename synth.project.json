@@ -1,0 +1,12 @@
+{
+  "schema": "synth.project/v1",
+  "name": "eucalyptus-regnans",
+  "brief": "Eucalyptus regnans F.Muell. (Mountain Ash) — South-Eastern Australian tall wet-sclerophyll flora ontology, pipe-model allometry, obligate-seeder fire ecology, biocultural Country provenance, and multi-regime Hypermedia (.hmc) production repository (Work-Packet ECO-WP-04A).",
+  "sources": [
+    "ontology",
+    "source",
+    "dossier"
+  ],
+  "working": "previews",
+  "delivered": "dist"
+}

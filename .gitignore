@@ -1,0 +1,15 @@
+# Synth local secrets & transient job inbox
+.synth/secrets.json
+.synth/secrets.*.json
+.synth/*.key
+.synth/*.pem
+.synth/update-seed.hex
+.synth/*-seed.hex
+.synth/inbox/
+
+# OS / editor / temporary scratch
+.DS_Store
+Thumbs.db
+*.tmp
+*.bak
+__pycache__/

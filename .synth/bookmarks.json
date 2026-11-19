@@ -1,0 +1,115 @@
+{
+  "schema": "synth.semantic-bookmarks/v1",
+  "items": [
+    {
+      "id": "euclid-eucalyptus-regnans",
+      "url": "https://apps.lucidcentral.org/euclid/text/entities/eucalyptus_regnans.htm",
+      "kind": "page",
+      "title": "EUCLID — Eucalyptus regnans",
+      "requires_api_key": false,
+      "auth": "none",
+      "created_at": 1794983426,
+      "updated_at": 1794983426
+    },
+    {
+      "id": "apni-name-eucalyptus-regnans",
+      "url": "https://id.biodiversity.org.au/name/apni/101747",
+      "kind": "page",
+      "title": "APNI Name — Eucalyptus regnans F.Muell. (101747)",
+      "requires_api_key": false,
+      "auth": "none",
+      "created_at": 1794983426,
+      "updated_at": 1794983426
+    },
+    {
+      "id": "apni-apc-taxon-eucalyptus-regnans",
+      "url": "https://id.biodiversity.org.au/taxon/apni/51290024",
+      "kind": "page",
+      "title": "APNI / APC Taxon — Eucalyptus regnans F.Muell. (51290024)",
+      "requires_api_key": false,
+      "auth": "none",
+      "created_at": 1794983426,
+      "updated_at": 1794983426
+    },
+    {
+      "id": "ala-eucalyptus-regnans",
+      "url": "https://bie.ala.org.au/species/https%3A/id.biodiversity.org.au/taxon/apni/51290024",
+      "kind": "page",
+      "title": "Atlas of Living Australia (ALA) — Eucalyptus regnans",
+      "requires_api_key": false,
+      "auth": "none",
+      "created_at": 1794983426,
+      "updated_at": 1794983426
+    },
+    {
+      "id": "ala-api",
+      "url": "https://api.ala.org.au",
+      "kind": "page",
+      "title": "Atlas of Living Australia APIs",
+      "requires_api_key": false,
+      "auth": "none",
+      "created_at": 1794983426,
+      "updated_at": 1794983426
+    },
+    {
+      "id": "gbif-eucalyptus-regnans",
+      "url": "https://www.gbif.org/species/3176566",
+      "kind": "page",
+      "title": "GBIF Backbone Taxonomy — Eucalyptus regnans F.Muell. (3176566)",
+      "requires_api_key": false,
+      "auth": "none",
+      "created_at": 1794983426,
+      "updated_at": 1794983426
+    },
+    {
+      "id": "vicflora-eucalyptus-regnans",
+      "url": "https://vicflora.rbg.vic.gov.au/flora/taxon/e580e052-ec06-444f-a9db-8f83060fc057",
+      "kind": "page",
+      "title": "VicFlora — Eucalyptus regnans",
+      "requires_api_key": false,
+      "auth": "none",
+      "created_at": 1794983426,
+      "updated_at": 1794983426
+    },
+    {
+      "id": "austraits-portal",
+      "url": "https://austraits.org",
+      "kind": "page",
+      "title": "AusTraits Plant Trait Database",
+      "requires_api_key": false,
+      "auth": "none",
+      "created_at": 1794983426,
+      "updated_at": 1794983426
+    },
+    {
+      "id": "tern-ontology",
+      "url": "https://w3id.org/tern",
+      "kind": "page",
+      "title": "TERN Ecological Ontology",
+      "requires_api_key": false,
+      "auth": "none",
+      "created_at": 1794983426,
+      "updated_at": 1794983426
+    },
+    {
+      "id": "nsw-bionet-atlas",
+      "url": "https://www.environment.nsw.gov.au/topics/animals-and-plants/biodiversity/nsw-bionet",
+      "kind": "page",
+      "title": "NSW BioNet Atlas",
+      "requires_api_key": false,
+      "auth": "none",
+      "created_at": 1794983426,
+      "updated_at": 1794983426
+    },
+    {
+      "id": "local-contexts-tk-bc",
+      "url": "https://localcontexts.org/labels/traditional-knowledge-labels/",
+      "kind": "page",
+      "title": "Local Contexts Traditional Knowledge (TK) & Biocultural (BC) Labels",
+      "requires_api_key": false,
+      "auth": "none",
+      "created_at": 1794983426,
+      "updated_at": 1794983426
+    }
+  ]
+}
